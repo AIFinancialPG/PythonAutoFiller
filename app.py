@@ -363,14 +363,14 @@ def enter_id_info():
 
     issueDatePickers = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//label[text()="Issue Date"]/..//div//button')))
     browser.execute_script("arguments[0].click()", issueDatePickers[0])
-    time.sleep(0.5)
+    time.sleep(1)
     todayIssueOption = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[contains(@aria-label, "Today")]')))
     browser.execute_script("arguments[0].click()", todayIssueOption)
     webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
 
     expireDatePickers = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//label[text()="Expiry Date"]/..//div//button')))
     browser.execute_script("arguments[0].click()", expireDatePickers[0])
-    time.sleep(0.5)
+    time.sleep(1)
     todayExpireOption = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[contains(@aria-label, "Today")]')))
     browser.execute_script("arguments[0].click()", todayExpireOption)
     webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
@@ -389,14 +389,16 @@ def enter_id_info():
 
     idInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(idInfoNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", idInfoNextBtn)
 
 def enter_tax_status():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     time.sleep(3)
+
     taxStatusInfoNextBtn = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(taxStatusInfoNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", taxStatusInfoNextBtn)
 
 def enter_employment_info():
@@ -405,7 +407,7 @@ def enter_employment_info():
 
     employmentStatusDropDown = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[@role="combobox"]')))
     browser.execute_script("arguments[0].click()", employmentStatusDropDown)
-    time.sleep(0.5)
+    time.sleep(1)
     employmentStatusOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@role="option"]')))
     browser.execute_script("arguments[0].click()", employmentStatusOptions[0])
 
@@ -426,7 +428,7 @@ def enter_employment_info():
 
     emplyInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(emplyInfoNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", emplyInfoNextBtn)
 
 
@@ -437,7 +439,7 @@ def enter_disclosure_info():
 
     disclosureInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(disclosureInfoNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", disclosureInfoNextBtn)
 
 
@@ -447,7 +449,7 @@ def enter_source_contri_info():
 
     sourceContriInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(sourceContriInfoNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", sourceContriInfoNextBtn)
 
 def enter_contri_option_info():
@@ -473,58 +475,56 @@ def enter_contri_option_info():
     file_input = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@type="file"]')))
     file_input.send_keys(upload_file)
 
+    contriOptionInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    webdriver.ActionChains(browser).scroll_to_element(contriOptionInfoNextBtn).perform()
+    time.sleep(1)
+    browser.execute_script("arguments[0].click()", contriOptionInfoNextBtn)
+
 def enter_policy_guarantee_lvl_info():
     WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     time.sleep(3)
 
+    guaranteeLvlOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//button[@role="radio"]')))
+    browser.execute_script("arguments[0].click()", guaranteeLvlOptions[0])
+
     policyGuaranteeLvlInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(policyGuaranteeLvlInfoNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", policyGuaranteeLvlInfoNextBtn)
 
-class FourOfXpathElementsNotPresent(EC):
-    def __init__(self, xpath):
-        super().__init__()
-        self.xpath = xpath
-
-    def __call__(self, driver: webdriver.Chrome):
-        elements = driver.find_elements(By.XPATH, self.xpath)
-        return len(elements) <= 3
-
-
 def enter_resi_status_info():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     time.sleep(3)
-    browser.execute_script("document.body.style.zoom='90%';")
 
-    WebDriverWait(browser, 10).until()
-
-    resiStatusOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//button[@role="radio"]')))
-    browser.execute_script("arguments[0].click()", resiStatusOptions[3])
+    otherResiStatusOption = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[contains(text(), "I live with others.")]')))
+    browser.execute_script("arguments[0].click()", otherResiStatusOption)
 
     resiStatusInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(resiStatusInfoNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", resiStatusInfoNextBtn)
 
-    browser.execute_script("document.body.style.zoom='100%';")
-
 def ans_canadian_real_estate_ques():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     time.sleep(3)
-
-    quesOptions = WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located((By.XPATH, '//button[@role="radio"]')))
-    browser.execute_script("arguments[0].click()", quesOptions[1])
+ 
+    noQuesOption = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[contains(text(), "No")]')))
+    browser.execute_script("arguments[0].click()", noQuesOption)
 
     quesNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(quesNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", quesNextBtn)
 
 def enter_fin_analysis_info():
     WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     time.sleep(3)
 
+    WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    time.sleep(3)
+
     addLiabilityBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[text()="Liabilities"]/following-sibling::div//button')))
-    browser.execute_script("argumnst[0].click()", addLiabilityBtn)
+    browser.execute_script("arguments[0].click()", addLiabilityBtn)
 
     WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'commonFields.liabilityBalance')))
 
@@ -544,18 +544,18 @@ def enter_fin_analysis_info():
     monthlyPaymentField = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'commonFields.liabilityMonthlyPayment')))
     monthlyPaymentField.send_keys("5")
 
-    addLiabilityDialogBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]//div//button')))
+    addLiabilityDialogBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]//div//button[contains(text(), "Add Liability")]')))
     browser.execute_script('arguments[0].click()', addLiabilityDialogBtn)
 
-    WebDriverWait(browser, 10).until_not(EC.visibility_of_element_located((By.NAME, 'commonFields.liabilityBalance')))
+    # WebDriverWait(browser, 10).until_not(EC.visibility_of_element_located((By.NAME, 'commonFields.liabilityBalance')))
 
     liabilityNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(liabilityNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", liabilityNextBtn)
 
     addAssetBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[text()="Assets"]/following-sibling::div//button')))
-    browser.execute_script("argumnst[0].click()", addAssetBtn)
+    browser.execute_script("arguments[0].click()", addAssetBtn)
 
     WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'commonFields.assetMarketValue')))
 
@@ -572,18 +572,18 @@ def enter_fin_analysis_info():
     assetTypeOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@role="option"]')))
     browser.execute_script("arguments[0].click()", assetTypeOptions[0])
 
-    addAssestDialogBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]//div//button')))
+    addAssestDialogBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]//div//button[contains(text(), "Add Asset")]')))
     browser.execute_script('arguments[0].click()', addAssestDialogBtn)
 
-    WebDriverWait(browser, 10).until_not(EC.visibility_of_element_located((By.NAME, 'commonFields.assetMarketValue')))
+    # WebDriverWait(browser, 10).until_not(EC.visibility_of_element_located((By.NAME, 'commonFields.assetMarketValue')))
 
     assetNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(assetNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", assetNextBtn)
 
     addIncomeBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//p[contains(text(),"TFSA, RRSP")]/following-sibling::div//button')))
-    browser.execute_script("argumnst[0].click()", addIncomeBtn)
+    browser.execute_script("arguments[0].click()", addIncomeBtn)
 
     WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'commonFields.annualIncome')))
 
@@ -603,30 +603,149 @@ def enter_fin_analysis_info():
     otherTypeIncomeField = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'commonFields.incomeTypeOther')))
     otherTypeIncomeField.send_keys("Social Media")
 
-    addIncomeDialogBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]//div//button')))
+    addIncomeDialogBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]//div//button[contains(text(), "Add Income")]')))
     browser.execute_script('arguments[0].click()', addIncomeDialogBtn)
 
-    WebDriverWait(browser, 10).until_not(EC.visibility_of_element_located((By.NAME, 'commonFields.annualIncome')))
+    # WebDriverWait(browser, 10).until_not(EC.visibility_of_element_located((By.NAME, 'commonFields.annualIncome')))
 
     incomeNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(incomeNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", incomeNextBtn)
 
-    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "overflow-y-auto")]//div//div//div//div//p[text()="Great Job!"]')))
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//p[text()="Great Job!"]')))
 
     finAnalysisNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
     webdriver.ActionChains(browser).scroll_to_element(finAnalysisNextBtn).perform()
-    time.sleep(0.5)
+    time.sleep(1)
     browser.execute_script("arguments[0].click()", finAnalysisNextBtn)
 
-    # rem later
-    time.sleep(5)
+def enter_primary_beneficiary_info():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    time.sleep(3)
+
+    beneficiaryFirstNameField = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'pendingBeneficiary.commonInfo.firstName')))
+    beneficiaryFirstNameField.send_keys("newTest")
+
+
+    beneficiaryLastNameField = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'pendingBeneficiary.commonInfo.lastName')))
+    beneficiaryLastNameField.send_keys("newTest")
+
+
+    relToAnnuitDropDown = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//label[text()="Relation to Annuitant"]/..//div//button[@role="combobox"]')))
+    browser.execute_script("arguments[0].click()", relToAnnuitDropDown)
+    relToAnnuitOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@role="option"]')))
+    browser.execute_script("arguments[0].click()", relToAnnuitOptions[0])
+
+
+    genderDropDown = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//label[text()="Gender"]/..//div//button[@role="combobox"]')))
+    browser.execute_script("arguments[0].click()", genderDropDown)
+    genderOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@role="option"]')))
+    browser.execute_script("arguments[0].click()", genderOptions[0])
+
+
+    beneficiaryTypeDropDown = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//label[text()="Beneficiary Type"]/..//div//button[@role="combobox"]')))
+    browser.execute_script("arguments[0].click()", beneficiaryTypeDropDown)
+    beneficiaryTypeOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@role="option"]')))
+    browser.execute_script("arguments[0].click()", beneficiaryTypeOptions[0])
+
+
+    sharePercentField = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'pendingBeneficiary.commonInfo.sharePercent')))
+    webdriver.ActionChains(browser).move_to_element(sharePercentField).click().send_keys(Keys.BACKSPACE).perform()
+    sharePercentField.send_keys("100")
+
+
+    dOBDatePickers = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//label[text()="Date of Birth"]/..//div//button')))
+    browser.execute_script("arguments[0].click()", dOBDatePickers[0])
+    todayDOBOption = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[contains(@aria-label, "Today")]')))
+    browser.execute_script("arguments[0].click()", todayDOBOption)
+    webdriver.ActionChains(browser).send_keys(Keys.ESCAPE).perform()
+
+    time.sleep(2)
+
+    tbScrollDiv = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "overflow-auto")]')))
+    browser.execute_script("arguments[0].scrollTop += 200;", tbScrollDiv)
+
+    trusteeRelToBeneficiaryDropDown = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//label[text()="Trustee Relation to Beneficiary"]/..//div//button[@role="combobox"]')))
+    browser.execute_script("arguments[0].click()", trusteeRelToBeneficiaryDropDown)
+    trusteeRelToBeneficiaryOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@role="option"]')))
+    browser.execute_script("arguments[0].click()", trusteeRelToBeneficiaryOptions[0])
+
+    trusteeFirstNameField = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'pendingBeneficiary.trusteeInfo.trusteeFirstname')))
+    trusteeFirstNameField.send_keys("newTest1")
+
+    trusteeLastNameField = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'pendingBeneficiary.trusteeInfo.trusteeLastname')))
+    trusteeLastNameField.send_keys("newTest1")
+
+    primaryBeneficiaryNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    webdriver.ActionChains(browser).scroll_to_element(primaryBeneficiaryNextBtn).perform()
+    time.sleep(1)
+    browser.execute_script("arguments[0].click()", primaryBeneficiaryNextBtn)
+    time.sleep(2)
+    primaryBeneficiaryInfoNextBtn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    webdriver.ActionChains(browser).scroll_to_element(primaryBeneficiaryNextBtn).perform()
+    time.sleep(1)
+    browser.execute_script("arguments[0].click()", primaryBeneficiaryInfoNextBtn)
+
+def enter_secondary_beneficiary_info():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    time.sleep(3)
+
+    secondaryBeneficiaryInfoNextBtn = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    webdriver.ActionChains(browser).scroll_to_element(secondaryBeneficiaryInfoNextBtn).perform()
+    time.sleep(1)
+    browser.execute_script("arguments[0].click()", secondaryBeneficiaryInfoNextBtn)
+
+def enter_investor_profile_info():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    time.sleep(3)
+
+    investorProfileInfoNextBtn = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    webdriver.ActionChains(browser).scroll_to_element(investorProfileInfoNextBtn).perform()
+    time.sleep(1)
+    browser.execute_script("arguments[0].click()", investorProfileInfoNextBtn)
+
+def enter_credit_report_info():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    time.sleep(3)
+
+    confirmRadioBtns = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//button[@role="radio"]')))
+    browser.execute_script("arguments[0].click()", confirmRadioBtns[0])
+
+    upload_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "test.jpg"))
+
+    file_inputs = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//input[@type="file"]')))
+    file_inputs[0].send_keys(upload_file)
+
+    creditReportInfoNextBtn = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    webdriver.ActionChains(browser).scroll_to_element(creditReportInfoNextBtn).perform()
+    time.sleep(1)
+    browser.execute_script("arguments[0].click()", creditReportInfoNextBtn)
+
+def enter_feedback_info():
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    time.sleep(3)
+
+    hearAboutDropDown = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//label[text()="How did you hear about us?"]/..//div//button[@role="combobox"]')))
+    browser.execute_script("arguments[0].click()", hearAboutDropDown)
+    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@role="option"]')))
+    hearAboutOptions = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@role="option"]')))
+    browser.execute_script("arguments[0].click()", hearAboutOptions[0])
+
+    moreDetailsTextArea = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.NAME, 'specialInstructions.heardDetail')))
+    moreDetailsTextArea.send_keys("Searching around on google")
+
+    creditReportInfoNextBtn = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, '//button[text()="Next"]')))
+    webdriver.ActionChains(browser).scroll_to_element(creditReportInfoNextBtn).perform()
+    time.sleep(1)
+    browser.execute_script("arguments[0].click()", creditReportInfoNextBtn)
+
+    time.sleep(10)
 
 
 def create_application():
     enter_personal_info()
-    enter_contact_info() 
+    enter_contact_info()
     enter_id_info()
     enter_tax_status()
     enter_employment_info()
@@ -636,7 +755,12 @@ def create_application():
     enter_policy_guarantee_lvl_info()
     enter_resi_status_info()
     ans_canadian_real_estate_ques()
-    enter_
+    enter_fin_analysis_info()
+    enter_primary_beneficiary_info()
+    enter_secondary_beneficiary_info()
+    enter_investor_profile_info()
+    enter_credit_report_info()
+    enter_feedback_info()
     browser.quit()
 
 async def main():
