@@ -70,18 +70,18 @@ def send_verification_code():
     passField.send_keys("Harkit@1234")
     browser.execute_script("arguments[0].click();", siginBtn)
 
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.ID, "sendCode")))
-    sendCodeBtn = browser.find_element(By.ID, "sendCode")
-    browser.execute_script("arguments[0].click();", sendCodeBtn)
+    # WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.ID, "sendCode")))
+    # sendCodeBtn = browser.find_element(By.ID, "sendCode")
+    # browser.execute_script("arguments[0].click();", sendCodeBtn)
     
 def pre_application_steps(message):
-    print(message)
-    WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.TAG_NAME, "input")))
-    WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.TAG_NAME, "button")))
-    verifCodeInput = browser.find_element(By.ID, "verificationCode")
-    verifCodeBtn = browser.find_element(By.ID, "verifyCode")
-    verifCodeInput.send_keys(message)
-    browser.execute_script("arguments[0].click();", verifCodeBtn)
+    # print(message)
+    # WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.TAG_NAME, "input")))
+    # WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.TAG_NAME, "button")))
+    # verifCodeInput = browser.find_element(By.ID, "verificationCode")
+    # verifCodeBtn = browser.find_element(By.ID, "verifyCode")
+    # verifCodeInput.send_keys(message)
+    # browser.execute_script("arguments[0].click();", verifCodeBtn)
 
     WebDriverWait(browser, 10).until(EC.url_changes(browser.current_url))
     
@@ -768,7 +768,7 @@ async def main():
     browser.implicitly_wait(10)
     browser.execute_script("document.body.style.zoom='100%';")
     send_verification_code()
-    message = await get_verification_mail()
+    message = "a" # await get_verification_mail()
     if len(message) != 0:
        pre_application_steps(message)
     
