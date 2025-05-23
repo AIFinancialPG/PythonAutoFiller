@@ -66,8 +66,10 @@ def send_verification_code():
     passField = browser.find_element(By.ID, "password")
     siginBtn = browser.find_element(By.ID, "next")
 
-    userNameField.send_keys("Harkit2")
-    passField.send_keys("Harkit@1234")
+    user, password = load_credentials("internal-credentials.yaml")
+
+    userNameField.send_keys(user)
+    passField.send_keys(password)
     browser.execute_script("arguments[0].click();", siginBtn)
 
     # WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.ID, "sendCode")))
