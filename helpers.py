@@ -29,6 +29,11 @@ class SeleniumHelper:
         tbScrollDiv = self.wait_for_element_by_xpath(xpath)
         webdriver.ActionChains(self.browser).move_to_element(tbScrollDiv).click().send_keys(Keys.PAGE_DOWN).perform()
         time.sleep(0.5)
+
+    def scroll_up_div_by_pg_up(self, xpath: str):
+        tbScrollDiv = self.wait_for_element_by_xpath(xpath)
+        webdriver.ActionChains(self.browser).move_to_element(tbScrollDiv).click().send_keys(Keys.PAGE_UP).perform()
+        time.sleep(0.5)
     
     def scroll_down_div_by_amt(self, xpath:str, amt: int):
         tbScrollDiv = self.wait_for_element_by_xpath(xpath)
@@ -57,8 +62,17 @@ class SeleniumHelper:
         self.scroll_to_element(nextBtn)
         time.sleep(1)
 
+    def set_zoom(self, amt: int):
+        self.browser.execute_script(f"document.body.style.zoom='{ amt }%';")
+        time.sleep(0.5)
+
     def click_btn(self, element: WebElement):
         self.browser.execute_script("arguments[0].click()", element)
+
+    def switch_to_co_applicant_section(self):
+        coAppBtn = self.wait_for_element_by_xpath('//button[@role="radio" and text()="Co-Applicant"]')
+        self.click_btn(coAppBtn)
+        time.sleep(0.5)
 
     def enter_input(self, name: str, data: str):
         element = WebDriverWait(self.browser, 20).until(EC.visibility_of_element_located((By.NAME, name)))

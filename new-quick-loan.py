@@ -9,9 +9,9 @@ from helpers import *
 browser = webdriver.Chrome(options=Options().add_argument("--disable-autofill"))
 browser.maximize_window()
 browser.implicitly_wait(10)
-browser.execute_script("document.body.style.zoom='100%';")
-options = {}
+options: dict[str, str] = {}
 helper = SeleniumHelper(browser)
+helper.set_zoom(100)
 
 def send_verification_code():
     browser.get('http://localhost:5173')
@@ -62,15 +62,52 @@ def enter_personal_info():
     helper.wait_for_next_btn()
     helper.enter_input("personalInfo.Applicant.firstName", "test")
     helper.enter_input("personalInfo.Applicant.lastName", "test")
+    if (len(options["personal_info_pref_name"]) > 0):
+        helper.enter_input("personalInfo.Applicant.preferredName", options["personal_info_pref_name"])
     helper.enter_drop_down("Gender", 0, 0)
     helper.enter_drop_down("Marital Status", 0, 0)
     helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
     helper.scroll_to_next_btn()
     helper.select_first_date_picker('//label[text()="Date of Birth"]/..//div//div//button', 0)
-    helper.enter_drop_down("Country of Birth", 0, 1)
+    helper.enter_drop_down("Country of Birth", 0, 
+        0 if options["personal_info_country_of_birth"] != "canada" else 1
+    )
     helper.enter_input("personalInfo.Applicant.provinceOfBirth", "Ontario")
     helper.enter_input("personalInfo.Applicant.SIN", "485888473")
+    if (options["personal_info_country_of_birth"] != "canada"):
+        if (options["personal_info_resi_since"] == "first of month"):
+            helper.select_first_date_picker('//label[text()="Resident of Canada Since"]/..//div//div//button', 0)
+        else:
+            helper.select_today_date_picker('//label[text()="Resident of Canada Since"]/..//div//div//button', 0)
     helper.enter_drop_down("Citizenship", 0, 1)
+
+    if (options["personal_info_if_co_applicant"]):
+        yesOptionBtn = helper.wait_for_element_by_xpath('//button[@role="radio" and @value="true"]')
+        helper.click_btn(yesOptionBtn)
+        helper.scroll_up_div_by_pg_up('//div[contains(@class, "overflow-y-auto")]')
+        helper.switch_to_co_applicant_section()
+        
+        helper.enter_input("personalInfo.Co-Applicant.firstName", "co test")
+        helper.enter_input("personalInfo.Co-Applicant.lastName", "co test")
+        if (len(options["personal_info_co_pref_name"]) > 0):
+            helper.enter_input("personalInfo.Co-Applicant.preferredName", options["personal_info_co_pref_name"])
+        helper.enter_drop_down("Gender", 0, 0)
+        helper.enter_drop_down("Marital Status", 0, 0)
+        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
+        helper.scroll_to_next_btn()
+        helper.select_first_date_picker('//label[text()="Date of Birth"]/..//div//div//button', 0)
+        helper.enter_drop_down("Country of Birth", 0, 
+            0 if options["personal_info_co_country_of_birth"] != "canada" else 1
+        )
+        helper.enter_input("personalInfo.Co-Applicant.provinceOfBirth", "Ontario")
+        helper.enter_input("personalInfo.Co-Applicant.SIN", "207694530")
+        if (options["personal_info_co_country_of_birth"] != "canada"):
+            if (options["personal_info_co_resi_since"] == "first of month"):
+                helper.select_first_date_picker('//label[text()="Resident of Canada Since"]/..//div//div//button', 0)
+            else:
+                helper.select_today_date_picker('//label[text()="Resident of Canada Since"]/..//div//div//button', 0)
+        helper.enter_drop_down("Citizenship", 0, 1)        
+
     helper.click_next_btn()
 
 def enter_contact_info():
@@ -279,26 +316,26 @@ def enter_feedback_info():
     helper.enter_drop_down("How did you hear about us?", 0, 0)
     helper.enter_input("specialInstructions.heardDetail", "Searching around on google")
     helper.click_next_btn()
-    time.sleep(10)
 
 def create_application():
     enter_personal_info()
-    enter_contact_info()
-    enter_id_info()
-    enter_tax_status()
-    enter_employment_info()
-    enter_disclosure_info()
-    enter_source_contri_info()
-    enter_contri_option_info()
-    enter_policy_guarantee_lvl_info()
-    enter_resi_status_info()
-    ans_canadian_real_estate_ques()
-    enter_fin_analysis_info()
-    enter_primary_beneficiary_info()
-    enter_secondary_beneficiary_info()
-    enter_investor_profile_info()
-    enter_credit_report_info()
-    enter_feedback_info()
+    # enter_contact_info()
+    # enter_id_info()
+    # enter_tax_status()
+    # enter_employment_info()
+    # enter_disclosure_info()
+    # enter_source_contri_info()
+    # enter_contri_option_info()
+    # enter_policy_guarantee_lvl_info()
+    # enter_resi_status_info()
+    # ans_canadian_real_estate_ques()
+    # enter_fin_analysis_info()
+    # enter_primary_beneficiary_info()
+    # enter_secondary_beneficiary_info()
+    # enter_investor_profile_info()
+    # enter_credit_report_info()
+    # enter_feedback_info()
+    time.sleep(10)
     browser.quit()
 
 async def main():

@@ -19,7 +19,7 @@ def load_credentials(filepath: str) -> tuple[str, str]:
 def load_application_options(filepath: str) -> dict[str, str]:
     try:
         with open(filepath, 'r') as file:
-            options = vars(yaml.safe_load(file))
+            options = yaml.safe_load(file)
             print(options)
             return options
     except Exception as e:
