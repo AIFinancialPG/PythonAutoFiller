@@ -10,6 +10,7 @@ browser = webdriver.Chrome(options=Options().add_argument("--disable-autofill"))
 browser.maximize_window()
 browser.implicitly_wait(10)
 browser.execute_script("document.body.style.zoom='100%';")
+options = {}
 helper = SeleniumHelper(browser)
 
 def send_verification_code():
@@ -301,6 +302,8 @@ def create_application():
     browser.quit()
 
 async def main():
+    global options
+    options = load_application_options("new-quick-loan-various-routes.yaml")
     send_verification_code()
     message = "@" # await get_verification_mail()
     if len(message) != 0:

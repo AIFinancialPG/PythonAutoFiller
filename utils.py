@@ -16,6 +16,16 @@ def load_credentials(filepath: str) -> tuple[str, str]:
         logging.error("Failed to load credentials: {}".format(e))
         raise
 
+def load_application_options(filepath: str) -> dict[str, str]:
+    try:
+        with open(filepath, 'r') as file:
+            options = vars(yaml.safe_load(file))
+            print(options)
+            return options
+    except Exception as e:
+        logging.error("Failed to load credentials: {}".format(e))
+        raise
+
 async def get_verification_mail() -> str:
     imap_client = aioimaplib.IMAP4_SSL(host='imap.gmail.com', timeout=30)
     await imap_client.wait_hello_from_server()

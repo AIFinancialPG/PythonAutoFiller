@@ -1,1 +1,417 @@
-# number of various routes an application can take
+# number of various routes a new quick-loan application can take
+
+# NOTES:
+# will consider later "28th of month" for the expiry of ids if the issue id <= 28
+
+### Personal Info Section
+
+# "", "something"
+personal_info_pref_name: ""
+
+# "male", "female"
+personal_info_gender: male
+
+# "english", "chinese"
+personal_info_pref_lang: english
+
+# "married", "single", "divorced", "separated", "windowed", "common law", "other"
+personal_info_marital_status: single
+
+# "first of month"
+personal_info_dob: first of month
+
+# "us", "canada"
+personal_info_country_of_birth: canada
+
+# if (personal_info_country_of_birth != "canada") {
+  # "first of month", "today"
+  personal_info_resi_since: first of month
+# }
+
+# "us", "canada"
+personal_info_citizenship: canada
+
+# "no", "yes"
+personal_info_if_co_applicant: no
+
+# if (personal_info_if_co_applicant == "yes") {
+  # "", "something"
+  personal_info_co_pref_name: ""
+
+  # "male", "female"
+  personal_info_co_gender: male
+
+  # "english", "chinese"
+  personal_info_co_pref_lang: english
+
+  # "married", "single", "divorced", "separated", "windowed", "common law", "other"
+  personal_info_co_marital_status: single
+
+  # "first of month"
+  personal_info_co_dob: first of month
+
+  # "us", "canada"
+  personal_info_co_country_of_birth: canada
+
+  # if (personal_info_co_country_of_birth != "canada") {
+    # "first of month", "today"
+    personal_info_co_resi_since: first of month
+  # }
+
+  # "us", "canada"
+  personal_info_co_citizenship: canada
+# }
+
+### Contact Info Section
+
+# "yes", "no"
+contact_info_search_for_cur_address: yes
+
+# if (contact_info_search_for_cur_address == "no") {
+  # "ontario", "bc", "other"
+  contact_info_cur_province: ontario
+# }
+
+# "first of month", "today", "first of month at least 12 yrs ago"
+contact_info_cur_living_since: first of month
+
+# if (contact_info_cur_living_since != "first of month at least 12 yrs ago") { 
+  # "yes", "no"
+  contact_info_search_for_prev_address: yes
+
+  # if (contact_info_search_for_cur_address == "no") {
+    # "ontario", "bc", "other"
+    contact_info_prev_province: ontario
+  # }
+
+  # "first of month", "today"
+  contact_info_prev_living_since: first of month
+# }
+
+# if (personal_info_if_co_applicant == "yes") {
+  # "yes", "no"
+  contact_info_co_applicant_same_address: "yes"
+
+  # if (personal_info_if_co_applicant == "no") {
+    # "yes", "no"
+    contact_info_co_search_for_cur_address: yes
+
+    # if (contact_info_search_for_cur_address == "no") {
+      # "ontario", "bc", "other"
+      contact_info_co_cur_province: ontario
+    # }
+
+    # "first of month", "today", "first of month at least 12 yrs ago"
+    contact_info_co_cur_living_since: first of month
+
+    # if (contact_info_cur_living_since != "first of month at least 12 yrs ago") { 
+      # "yes", "no"
+      contact_info_co_search_for_prev_address: yes
+
+      # if (contact_info_search_for_cur_address == "no") {
+        # "ontario", "bc", "other"
+        contact_info_co_prev_province: ontario
+      # }
+
+      # "first of month", "today"
+      contact_info_co_prev_living_since: first of month
+    # }
+  # }  
+# }
+
+### ID Info Section
+
+# "citizenship card", "other"
+id_info_id1_type: citizenship card
+
+# "first of month", "today"
+id_info_id1_issue_date: first of month
+
+# if (id_info_id1_type == "other") {
+  # "today"
+  id_info_id1_expiry_date: today
+# }
+
+# if (id_info_id1_type == "citizenship card") { "other" }
+# if (id_info_id1_type == "other") { "citizenship card", "other" }
+id_info_id2_type: other
+
+# "first of month", "today"
+id_info_id2_issue_date: first of month
+
+# if (id_info_id1_type == "other") {
+  # "today"
+  id_info_id2_expiry_date: today
+# }
+
+# "yes", "no"
+id_info_in_person_verify: yes
+
+# if (id_info_in_person_verify == "no") {
+  # "first of month", "today"
+  id_info_id_verify_doc_date: today
+# }
+
+# if (personal_info_if_co_applicant == "yes") {
+  # "citizenship card", "other"
+  id_info_co_id1_type: citizenship card
+
+  # "first of month", "today"
+  id_info_co_id1_issue_date: first of month
+
+  # if (id_info_co_id1_type == "other") {
+    # "today"
+    id_info_co_id1_expiry_date: today
+  # }
+
+  # if (id_info_co_id1_type == "citizenship card") { "other" }
+  # if (id_info_co_id1_type == "other") { "citizenship card", "other" }
+  id_info_co_id2_type: other
+
+  # "first of month", "today"
+  id_info_co_id2_issue_date: first of month
+
+  # if (id_info_co_id1_type == "other") {
+    # "today"
+    id_info_co_id2_expiry_date: today
+  # }
+
+  # "yes", "no"
+  id_info_co_in_person_verify: yes
+
+  # if (id_info_co_in_person_verify == "no") {
+    # "first of month", "today"
+    id_info_co_id_verify_doc_date: today
+  # }
+# }
+
+### Tax Status Info Section
+
+# "yes", "no"
+tax_status_info_tax_resi_of_canada: yes
+# ------------------------------------- Cannot Proceed if "no" ---------------------------------
+
+# "yes", "no"
+tax_status_info_us_resi: yes
+
+# if (tax_status_info_us_resi == "yes") {
+  # "yes", "no"
+  tax_status_info_tin_from_us: no
+
+  # if (tax_status_info_tin_from_us == "no") {
+    # "apply", "other"
+    tax_status_info_reason_for_no_tin: other
+  # }
+# }
+
+# "yes", "no"
+tax_status_info_other_region: yes
+
+# if (tax_status_info_other_region == "yes") {
+  # "yes", "no"
+  tax_status_info_tin_from_other: no
+
+  # if (tax_status_info_tin_from_us == "no") {
+    # "apply", "other"
+    tax_status_info_reason_for_no_other_tin: other
+  # }
+# }
+
+# if (personal_info_if_co_applicant == "yes") {
+  # "yes", "no"
+  tax_status_info_co_tax_resi_of_canada: yes
+  # ------------------------------------- Cannot Proceed if "no" ---------------------------------
+
+  # "yes", "no"
+  tax_status_info_co_us_resi: yes
+
+  # if (tax_status_info_co_us_resi == "yes") {
+    # "yes", "no"
+    tax_status_info_co_tin_from_us: no
+
+    # if (tax_status_info_co_tin_from_us == "no") {
+      # "apply", "other"
+      tax_status_info_co_reason_for_no_tin: other
+    # }
+  # }
+
+  # "yes", "no"
+  tax_status_info_co_other_region: yes
+
+  # if (tax_status_info_co_other_region == "yes") {
+    # "yes", "no"
+    tax_status_info_co_tin_from_other: no
+
+    # if (tax_status_info_co_tin_from_us == "no") {
+      # "apply", "other"
+      tax_status_info_co_reason_for_no_other_tin: other
+    # }
+  # }
+# }
+
+### Employment Info Section
+
+# "employed", "student", "retired", "other"
+emp_info_status: employed
+
+# ------------------------------------- Cannot Proceed if not "employed" ---------------------------------
+
+# "employed", "student", "retired", "other"
+emp_info_co_status: employed
+
+# ------------------------------------- Cannot Proceed if not "employed" ---------------------------------
+
+### Disclosure Info Section
+
+# !!! do not need options for questions, because "yes" option is not allowwd for any question !!!
+
+### Source of Contribution Section
+
+# "yes", "no"
+source_of_contri_info_new_loan: no
+
+# "100%", "1 for 1", "2 for 1", "3 for 1"
+source_of_contri_info_loan_ration: 100%
+
+### Contribution Option Section
+
+# "yes", "no"
+contri_option_requires_more_than_one_sign: yes
+
+### Policy Guarantee Level Section
+
+# "75/75", "75/100", "100/100"
+policy_guarantee_level: 75/75
+
+### Residential Status
+
+# "own home", "rented home", "live with parents", "others"
+resi_status_info_main_applicant_resi: own home
+
+# if (resi_status_info_main_applicant_resi == "own home") { "own home", "others" }
+# if (resi_status_info_main_applicant_resi == "rented") { "rented" }
+# if (resi_status_info_main_applicant_resi == "live with parents") { "live with parents" }
+# if (resi_status_info_main_applicant_resi == "others") { "own home", "others" }
+resi_status_info_co_applicant_resi: own home
+
+# if (resi_status_info_main_applicant_resi == "own home" || resi_status_info_main_applicant_resi == "own home") {
+  # "applicant", "co applicant", "both"
+  resi_status_info_owner_of_home: applicant
+
+  # "yes", "no"
+  resi_status_info_is_mortgage: yes
+  
+  # "yes", "no"
+  resi_status_info_is_maintenance_fee: yes
+# }
+
+# "yes", "no"
+resi_status_info_is_canadian_resi: yes
+
+# if (resi_status_info_is_canadian_resi == "yes") {
+  # "applicant", "co applicant", "both"
+  resi_status_info_owner_of_home: applicant
+
+  # "yes", "no"
+  resi_status_info_is_mortgage: yes
+  
+  # "yes", "no"
+  resi_status_info_is_maintenance_fee: yes
+# }
+
+### Financial Analysis
+
+# "applicant", "co applicant", "both"
+fin_analysis_add_lib_owner: both
+
+# "mortgage", "rent", "other debts", "other"
+fin_analysis_add_lib_liability_type: mortgage
+
+# "applicant", "co applicant", "both"
+fin_analysis_add_asset_owner: both
+
+# "real estate", "other assets", "other"
+fin_analysis_add_asset_liability_type: other assets
+
+# "applicant", "co applicant", "both"
+fin_analysis_add_asset_income: both
+
+# "employment", "other income", "other"
+fin_analysis_add_asset_liability_type: employment
+
+# "yes", "no"
+fin_analysis_search_for_cur_emp_address: yes
+
+# "today", "first of month at least 12 yrs ago"
+fin_analysis_add_income_serving_since: toady
+
+# if (fin_analysis_add_income_serving_since == "today") {
+  # "yes", "no"
+  fin_analysis_search_for_prev_emp_address: yes
+
+  # "today"
+  fin_analysis_add_income_serving_since: toady
+# }
+
+### Primary Beneficiary Info Section
+
+# "revocable", "irrevocable"
+primary_beneficiary_type: irrevocable
+
+# "today", "first of month at least 24 yrs ago"
+primary_beneficiary_date_of_birth: today
+
+### Secondary Beneficiary Info Section
+
+# "yes", "no"
+secondary_beneficiary_is_there: yes
+
+# if (secondary_beneficiary_is_there == "yes") {
+  # "revocable", "irrevocable"
+  secondary_beneficiary_type: irrevocable
+
+  # "today", "first of month at least 24 yrs ago"
+  secondary_beneficiary_date_of_birth: today
+# }
+
+### Successor Annuitant Info Section
+
+# "yes", "no"
+successor_annuitant_is_there: yes
+
+### Successor Owner Info Section
+
+# "yes", "no"
+successor_owner_is_there: yes
+
+### Investor Profile Info Section
+
+# "lower than 200", "equal or more than 200"
+investor_profile_score: equal or more than 200
+
+# ------------------------------------- Cannot Proceed if "lower than 200" ---------------------------------
+
+# if (personal_info_if_co_applicant == "yes") {
+  # "lower than 200", "equal or more than 200"
+  investor_profile_co_score: equal or more than 200
+
+  # ------------------------------------- Cannot Proceed if "lower than 200" ---------------------------------
+# }
+
+### Credit Report Info Section
+
+# "yes", "no"
+credit_report_score_at_leats_700: yes
+
+# ------------------------------------- Cannot Proceed if "no" ---------------------------------
+
+# if (personal_info_if_co_applicant == "yes") {
+  # "yes", "no"
+  credit_report_co_score_at_leats_700: yes
+
+  # ------------------------------------- Cannot Proceed if "no" ---------------------------------
+# }
+
+### Feedback Info section
+
+# !!! nothing required !!!
