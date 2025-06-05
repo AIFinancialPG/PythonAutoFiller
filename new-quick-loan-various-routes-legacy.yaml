@@ -20,7 +20,7 @@ personal_info_resi_since: first of month
 personal_info_citizenship: canada
 
 # "no", "yes"
-personal_info_if_co_applicant: yes
+personal_info_if_co_applicant: 'yes'
 
 # if (personal_info_if_co_applicant == "yes") {
 # "", "something"
@@ -41,24 +41,20 @@ personal_info_co_citizenship: canada
 ### Contact Info Section
 
 # "yes", "no"
-contact_info_search_for_cur_address: yes
+contact_info_search_for_cur_address: 'yes'
 
 # if (contact_info_search_for_cur_address == "no") {
-# "ontario", "bc", "other"
-contact_info_cur_province: ontario
+# "valid", "invalid"
+contact_info_cur_province: valid
+# ------------------------------------- Cannot Proceed if "invalid" ---------------------------------
 # }
 
 # "first of month", "today", "first of month at least 12 yrs ago"
-contact_info_cur_living_since: first of month
+contact_info_cur_living_since: first of month at least 12 yrs ago
 
 # if (contact_info_cur_living_since != "first of month at least 12 yrs ago") { 
 # "yes", "no"
-contact_info_search_for_prev_address: yes
-
-# if (contact_info_search_for_cur_address == "no") {
-# "ontario", "bc", "other"
-contact_info_prev_province: ontario
-# }
+contact_info_search_for_prev_address: 'yes'
 
 # "first of month", "today"
 contact_info_prev_living_since: first of month
@@ -66,28 +62,24 @@ contact_info_prev_living_since: first of month
 
 # if (personal_info_if_co_applicant == "yes") {
 # "yes", "no"
-contact_info_co_applicant_same_address: "yes"
+contact_info_co_applicant_same_address: 'no'
 
-# if (personal_info_if_co_applicant == "no") {
+# if (contact_info_co_applicant_same_address == "no") {
 # "yes", "no"
-contact_info_co_search_for_cur_address: yes
+contact_info_co_search_for_cur_address: 'yes'
 
 # if (contact_info_search_for_cur_address == "no") {
-# "ontario", "bc", "other"
-contact_info_co_cur_province: ontario
+# "valid", "invalid"
+contact_info_co_cur_province: valid
+# ------------------------------------- Cannot Proceed if "invalid" ---------------------------------
 # }
 
 # "first of month", "today", "first of month at least 12 yrs ago"
 contact_info_co_cur_living_since: first of month
 
-# if (contact_info_cur_living_since != "first of month at least 12 yrs ago") { 
+# if (contact_info_co_cur_living_since != "first of month at least 12 yrs ago") { 
 # "yes", "no"
-contact_info_co_search_for_prev_address: yes
-
-# if (contact_info_search_for_cur_address == "no") {
-# "ontario", "bc", "other"
-contact_info_co_prev_province: ontario
-# }
+contact_info_co_search_for_prev_address: 'yes'
 
 # "first of month", "today"
 contact_info_co_prev_living_since: first of month
@@ -121,16 +113,19 @@ id_info_id2_expiry_date: today
 # }
 
 # "yes", "no"
-id_info_in_person_verify: yes
+id_info_in_person_verify: 'no'
 
 # if (id_info_in_person_verify == "no") {
+# "other option", "other"
+id_info_id_verify_doc_type: other option
+
 # "first of month", "today"
 id_info_id_verify_doc_date: today
 # }
 
 # if (personal_info_if_co_applicant == "yes") {
 # "citizenship card", "other"
-id_info_co_id1_type: citizenship card
+id_info_co_id1_type: other
 
 # "first of month", "today"
 id_info_co_id1_issue_date: first of month
@@ -142,7 +137,7 @@ id_info_co_id1_expiry_date: today
 
 # if (id_info_co_id1_type == "citizenship card") { "other" }
 # if (id_info_co_id1_type == "other") { "citizenship card", "other" }
-id_info_co_id2_type: other
+id_info_co_id2_type: citizenship card
 
 # "first of month", "today"
 id_info_co_id2_issue_date: first of month
@@ -153,9 +148,12 @@ id_info_co_id2_expiry_date: today
 # }
 
 # "yes", "no"
-id_info_co_in_person_verify: yes
+id_info_co_in_person_verify: 'no'
 
 # if (id_info_co_in_person_verify == "no") {
+# "other option", "other"
+id_info_co_id_verify_doc_type: other option
+
 # "first of month", "today"
 id_info_co_id_verify_doc_date: today
 # }
@@ -164,15 +162,15 @@ id_info_co_id_verify_doc_date: today
 ### Tax Status Info Section
 
 # "yes", "no"
-tax_status_info_tax_resi_of_canada: yes
+tax_status_info_tax_resi_of_canada: 'yes'
 # ------------------------------------- Cannot Proceed if "no" ---------------------------------
 
 # "yes", "no"
-tax_status_info_us_resi: yes
+tax_status_info_us_resi: 'yes'
 
 # if (tax_status_info_us_resi == "yes") {
 # "yes", "no"
-tax_status_info_tin_from_us: no
+tax_status_info_tin_from_us: 'no'
 
 # if (tax_status_info_tin_from_us == "no") {
 # "apply", "other"
@@ -181,11 +179,11 @@ tax_status_info_reason_for_no_tin: other
 # }
 
 # "yes", "no"
-tax_status_info_other_region: yes
+tax_status_info_other_region: 'yes'
 
 # if (tax_status_info_other_region == "yes") {
 # "yes", "no"
-tax_status_info_tin_from_other: no
+tax_status_info_tin_from_other: 'no'
 
 # if (tax_status_info_tin_from_us == "no") {
 # "apply", "other"
@@ -195,15 +193,15 @@ tax_status_info_reason_for_no_other_tin: other
 
 # if (personal_info_if_co_applicant == "yes") {
 # "yes", "no"
-tax_status_info_co_tax_resi_of_canada: yes
+tax_status_info_co_tax_resi_of_canada: 'yes'
 # ------------------------------------- Cannot Proceed if "no" ---------------------------------
 
 # "yes", "no"
-tax_status_info_co_us_resi: yes
+tax_status_info_co_us_resi: 'yes'
 
 # if (tax_status_info_co_us_resi == "yes") {
 # "yes", "no"
-tax_status_info_co_tin_from_us: no
+tax_status_info_co_tin_from_us: 'no'
 
 # if (tax_status_info_co_tin_from_us == "no") {
 # "apply", "other"
@@ -212,11 +210,11 @@ tax_status_info_co_reason_for_no_tin: other
 # }
 
 # "yes", "no"
-tax_status_info_co_other_region: yes
+tax_status_info_co_other_region: 'yes'
 
 # if (tax_status_info_co_other_region == "yes") {
 # "yes", "no"
-tax_status_info_co_tin_from_other: no
+tax_status_info_co_tin_from_other: 'no'
 
 # if (tax_status_info_co_tin_from_us == "no") {
 # "apply", "other"
@@ -227,12 +225,12 @@ tax_status_info_co_reason_for_no_other_tin: other
 
 ### Employment Info Section
 
-# "employed", "student", "retired", "other"
+# "employed", "other"
 emp_info_status: employed
 
 # ------------------------------------- Cannot Proceed if not "employed" ---------------------------------
 
-# "employed", "student", "retired", "other"
+# "employed", "other"
 emp_info_co_status: employed
 
 # ------------------------------------- Cannot Proceed if not "employed" ---------------------------------
@@ -244,15 +242,12 @@ emp_info_co_status: employed
 ### Source of Contribution Section
 
 # "yes", "no"
-source_of_contri_info_new_loan: no
-
-# "100%", "1 for 1", "2 for 1", "3 for 1"
-source_of_contri_info_loan_ration: 100%
+source_of_contri_info_new_loan: 'no'
 
 ### Contribution Option Section
 
 # "yes", "no"
-contri_option_requires_more_than_one_sign: yes
+contri_option_requires_more_than_one_sign: 'yes'
 
 ### Policy Guarantee Level Section
 
@@ -264,69 +259,91 @@ policy_guarantee_level: 75/75
 # "own home", "rented home", "live with parents", "others"
 resi_status_info_main_applicant_resi: own home
 
+# if (personal_info_if_co_applicant == "yes") {
+
 # if (resi_status_info_main_applicant_resi == "own home") { "own home", "others" }
 # if (resi_status_info_main_applicant_resi == "rented") { "rented" }
 # if (resi_status_info_main_applicant_resi == "live with parents") { "live with parents" }
 # if (resi_status_info_main_applicant_resi == "others") { "own home", "others" }
 resi_status_info_co_applicant_resi: own home
 
-# if (resi_status_info_main_applicant_resi == "own home" || resi_status_info_main_applicant_resi == "own home") {
-# "applicant", "co applicant", "both"
-resi_status_info_owner_of_home: applicant
-
-# "yes", "no"
-resi_status_info_is_mortgage: yes
-
-# "yes", "no"
-resi_status_info_is_maintenance_fee: yes
 # }
 
-# "yes", "no"
-resi_status_info_is_canadian_resi: yes
+# if (resi_status_info_main_applicant_resi == "own home" || resi_status_info_main_applicant_resi == "own home") {
 
-# if (resi_status_info_is_canadian_resi == "yes") {
-# "applicant", "co applicant", "both"
-resi_status_info_owner_of_home: applicant
-
-# "yes", "no"
-resi_status_info_is_mortgage: yes
+# if (resi_status_info_main_applicant_resi == "own home" && resi_status_info_main_applicant_resi == "own home") { "both" } 
+# else if (resi_status_info_main_applicant_resi == "own home") { "applicant", "both" }
+# else if (resi_status_info_main_applicant_resi == "own home") { "co applicant", "both" }
+resi_status_info_owner_of_home: both
 
 # "yes", "no"
-resi_status_info_is_maintenance_fee: yes
+resi_status_info_is_mortgage: 'yes'
+
+# "yes", "no"
+resi_status_info_is_maintenance_fee: 'yes'
+
+# }
+
+### Answer Canadian Real-Estate Question Section
+
+# "yes", "no"
+cad_real_estate_is_canadian_resi: 'yes'
+
+# if (cad_real_estate_is_canadian_resi == "yes") { 
+# if (personal_info_if_co_applicant == "yes") { "applicant", "co applicant", "both" }
+# if (personal_info_if_co_applicant == "no") { "applicant" }
+cad_real_estate_owner_of_home: applicant
+
+# "yes", "no"
+cad_real_estate_is_mortgage: 'yes'
+
+# "yes", "no"
+cad_real_estate_is_maintenance_fee: 'yes'
+
 # }
 
 ### Financial Analysis
 
-# "applicant", "co applicant", "both"
+# if (personal_info_if_co_applicant == "yes") {"applicant", "co applicant", "both"}
+# if (personal_info_if_co_applicant == "no") { "applicant" }
 fin_analysis_add_lib_owner: both
 
 # "mortgage", "rent", "other debts", "other"
 fin_analysis_add_lib_liability_type: mortgage
 
-# "applicant", "co applicant", "both"
+# if (fin_analysis_add_lib_liability_type == "mortgage") {
+# "yes", "no"
+fin_analysis_add_lib_no_mortgage: 'no'
+
+# "yes", "no"
+fin_analysis_add_lib_no_mortgage_maintain_fee: 'no'
+# }
+
+# if (personal_info_if_co_applicant == "yes") {"applicant", "co applicant", "both"}
+# if (personal_info_if_co_applicant == "no") { "applicant" }
 fin_analysis_add_asset_owner: both
 
 # "real estate", "other assets", "other"
-fin_analysis_add_asset_liability_type: other assets
+fin_analysis_add_asset_asset_type: other assets
 
-# "applicant", "co applicant", "both"
-fin_analysis_add_asset_income: both
+# if (personal_info_if_co_applicant == "yes") {"applicant", "co applicant", "both"}
+# if (personal_info_if_co_applicant == "no") { "applicant" }
+fin_analysis_add_income_owner: both
 
 # "employment", "other income", "other"
-fin_analysis_add_asset_liability_type: employment
+fin_analysis_add_income_income_type: employment
 
+# if (fin_analysis_add_income_income_type == "employment") {
 # "yes", "no"
-fin_analysis_search_for_cur_emp_address: yes
+fin_analysis_add_income_search_for_cur_emp_address: 'yes'
 
 # "today", "first of month at least 12 yrs ago"
-fin_analysis_add_income_serving_since: toady
+fin_analysis_add_income_cur_serving_since: toady
 
 # if (fin_analysis_add_income_serving_since == "today") {
 # "yes", "no"
-fin_analysis_search_for_prev_emp_address: yes
-
-# "today"
-fin_analysis_add_income_serving_since: toady
+fin_analysis_add_income_search_for_prev_emp_address: 'yes'
+# }
 # }
 
 ### Primary Beneficiary Info Section
@@ -337,10 +354,16 @@ primary_beneficiary_type: irrevocable
 # "today", "first of month at least 24 yrs ago"
 primary_beneficiary_date_of_birth: today
 
+# "other option", "other"
+primary_beneficiary_relation_to_annutaint: other option
+
+# "other option", "other"
+primary_beneficiary_trustee_relation: other option
+
 ### Secondary Beneficiary Info Section
 
 # "yes", "no"
-secondary_beneficiary_is_there: yes
+secondary_beneficiary_is_there: 'yes'
 
 # if (secondary_beneficiary_is_there == "yes") {
 # "revocable", "irrevocable"
@@ -350,15 +373,21 @@ secondary_beneficiary_type: irrevocable
 secondary_beneficiary_date_of_birth: today
 # }
 
+# "other option", "other"
+secondary_beneficiary_relation_to_annutaint: other option
+
+# "other option", "other"
+secondary_beneficiary_trustee_relation: other option
+
 ### Successor Annuitant Info Section
 
 # "yes", "no"
-successor_annuitant_is_there: yes
+successor_annuitant_is_there: 'yes'
 
 ### Successor Owner Info Section
 
 # "yes", "no"
-successor_owner_is_there: yes
+successor_owner_is_there: 'yes'
 
 ### Investor Profile Info Section
 
@@ -377,13 +406,13 @@ investor_profile_co_score: equal or more than 200
 ### Credit Report Info Section
 
 # "yes", "no"
-credit_report_score_at_leats_700: yes
+credit_report_score_at_leats_700: 'yes'
 
 # ------------------------------------- Cannot Proceed if "no" ---------------------------------
 
 # if (personal_info_if_co_applicant == "yes") {
 # "yes", "no"
-credit_report_co_score_at_leats_700: yes
+credit_report_co_score_at_leats_700: 'yes'
 
 # ------------------------------------- Cannot Proceed if "no" ---------------------------------
 # }

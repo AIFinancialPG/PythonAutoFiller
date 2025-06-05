@@ -1,5 +1,6 @@
 import os
 import time
+import datetime
 from selenium.webdriver.remote.webelement import WebElement
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -12,15 +13,28 @@ class SeleniumHelper:
     def __init__(self, browser: webdriver.Chrome):
         self.browser = browser
 
+    def browser_get(self, url: str):
+        self.browser.get(url)
+
+    def refresh(self):
+        self.browser.execute_script("location.reload();")
+
     def wait_for_next_btn(self):
         WebDriverWait(self.browser, 20).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Next"]')))
         time.sleep(3)
 
     def wait_for_url_change(self):
         WebDriverWait(self.browser, 20).until(EC.url_changes(self.browser.current_url))
+    
+    def wait_for_element_to_be_interactable_by_name(self, name: str):
+        element = WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable((By.NAME, name)))
+        self.click_btn(element)
+
+    def wait_for_element_to_be_clickable(self, xpath: str) -> WebElement:
+        return WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable((By.XPATH, xpath)))
 
     def wait_for_element_by_xpath(self, xpath: str) -> WebElement:
-        return WebDriverWait(self.browser, 20).until(EC.visibility_of_element_located((By.XPATH, xpath)))
+        return WebDriverWait(self.browser, 20).until(EC.presence_of_element_located((By.XPATH, xpath)))
     
     def wait_for_all_elements_by_xpath(self, xpath: str) -> list[WebElement]:
         return WebDriverWait(self.browser, 20).until(EC.presence_of_all_elements_located((By.XPATH, xpath)))
@@ -69,6 +83,9 @@ class SeleniumHelper:
     def click_btn(self, element: WebElement):
         self.browser.execute_script("arguments[0].click()", element)
 
+    def click_pres_btn(self, element: WebElement):
+        webdriver.ActionChains(self.browser).move_to_element(element).click().perform()
+
     def switch_to_co_applicant_section(self):
         coAppBtn = self.wait_for_element_by_xpath('//button[@role="radio" and text()="Co-Applicant"]')
         self.click_btn(coAppBtn)
@@ -77,6 +94,17 @@ class SeleniumHelper:
     def enter_input(self, name: str, data: str):
         element = WebDriverWait(self.browser, 20).until(EC.visibility_of_element_located((By.NAME, name)))
         element.send_keys(data)
+
+    def send_keys(self, element: WebElement, data: str):
+        element.send_keys(data)
+
+    def quit_browser(self):
+        self.browser.quit()
+
+    def no_proceed_app(self):
+        print("Application won't proceed ahead because an application stoping action got selected")
+        time.sleep(3)
+        self.quit_browser()
 
     def upload_file_to_input(self, idx: int):
         upload_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "test.jpg"))
@@ -101,6 +129,39 @@ class SeleniumHelper:
         datePickers = self.wait_for_all_elements_by_xpath(xpath)
         self.click_btn(datePickers[date_picker_idx])
         time.sleep(0.5)
+        firstOption = self.wait_for_element_by_xpath('//button[text()="1"]')
+        self.click_btn(firstOption)
+        webdriver.ActionChains(self.browser).send_keys(Keys.ESCAPE).perform()
+
+    def select_first_at_least_12yrs_ago_date_selector(self, xpath: str, date_picker_idx: int):
+        datePickers = self.wait_for_all_elements_by_xpath(xpath)
+        self.click_btn(datePickers[date_picker_idx])
+        time.sleep(0.5)
+        now = datetime.datetime.now()
+        monthBtn = self.wait_for_element_by_xpath(f'//button[text()="{ now.strftime("%B %Y") }"]')
+        self.click_btn(monthBtn)
+        leftChevBtn = self.wait_for_element_by_xpath('//button[@aria-label="Go to the previous 12 years"]')
+        self.click_btn(leftChevBtn)
+        firstYearBtn = self.wait_for_element_by_xpath(f'//div[@aria-label="{ now.strftime("%B %Y") }"]//button')
+        self.click_btn(firstYearBtn)
+        firstOption = self.wait_for_element_by_xpath('//button[text()="1"]')
+        self.click_btn(firstOption)
+        webdriver.ActionChains(self.browser).send_keys(Keys.ESCAPE).perform()
+
+    def select_first_at_least_24yrs_ago_date_selector(self, xpath: str, date_picker_idx: int):
+        datePickers = self.wait_for_all_elements_by_xpath(xpath)
+        self.click_btn(datePickers[date_picker_idx])
+        time.sleep(0.5)
+        now = datetime.datetime.now()
+        monthBtn = self.wait_for_element_by_xpath(f'//button[text()="{ now.strftime("%B %Y") }"]')
+        self.click_btn(monthBtn)
+        leftChevBtn = self.wait_for_element_by_xpath('//button[@aria-label="Go to the previous 12 years"]')
+        self.click_btn(leftChevBtn)
+        time.sleep(0.5)
+        leftChevBtn = self.wait_for_element_by_xpath('//button[@aria-label="Go to the previous 12 years"]')
+        self.click_btn(leftChevBtn)
+        firstYearBtn = self.wait_for_element_by_xpath(f'//div[@aria-label="{ now.strftime("%B %Y") }"]//button')
+        self.click_btn(firstYearBtn)
         firstOption = self.wait_for_element_by_xpath('//button[text()="1"]')
         self.click_btn(firstOption)
         webdriver.ActionChains(self.browser).send_keys(Keys.ESCAPE).perform()
