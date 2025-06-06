@@ -26,9 +26,8 @@ class SeleniumHelper:
     def wait_for_url_change(self):
         WebDriverWait(self.browser, 20).until(EC.url_changes(self.browser.current_url))
     
-    def wait_for_element_to_be_interactable_by_name(self, name: str):
-        element = WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable((By.NAME, name)))
-        self.click_btn(element)
+    def wait_for_element_to_be_clickable(self, xpath: str):
+        element = WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable((By.XPATH, xpath)))
 
     def wait_for_element_to_be_clickable(self, xpath: str) -> WebElement:
         return WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable((By.XPATH, xpath)))
@@ -174,3 +173,34 @@ class SeleniumHelper:
         nextBtn = self.wait_for_element_by_xpath('//button[text()="Next"]')
         self.scroll_to_element(nextBtn)
         self.click_btn(nextBtn)
+
+    def click_with_js_events(self, element: WebElement):
+        """Click using JavaScript with proper event dispatching"""
+        self.browser.execute_script("""
+            var element = arguments[0];
+            var events = ['mousedown', 'mouseup', 'click'];
+            events.forEach(function(eventType) {
+                var event = new MouseEvent(eventType, {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                element.dispatchEvent(event);
+            });
+        """, element)
+
+    def click_with_pointer_events(self, element: WebElement):
+        """Click using pointer events (React often listens to these)"""
+        self.browser.execute_script("""
+            var element = arguments[0];
+            var events = ['pointerdown', 'pointerup', 'click'];
+            events.forEach(function(eventType) {
+                var event = new PointerEvent(eventType, {
+                    pointerId: 1,
+                    bubbles: true,
+                    cancelable: true,
+                    isPrimary: true
+                });
+                element.dispatchEvent(event);
+            });
+        """, element)

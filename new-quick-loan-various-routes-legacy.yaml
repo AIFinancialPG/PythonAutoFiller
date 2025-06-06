@@ -357,8 +357,10 @@ primary_beneficiary_date_of_birth: today
 # "other option", "other"
 primary_beneficiary_relation_to_annutaint: other option
 
+# if (primary_beneficiary_date_of_birth == "today") {
 # "other option", "other"
 primary_beneficiary_trustee_relation: other option
+# }
 
 ### Secondary Beneficiary Info Section
 
@@ -371,13 +373,16 @@ secondary_beneficiary_type: irrevocable
 
 # "today", "first of month at least 24 yrs ago"
 secondary_beneficiary_date_of_birth: today
-# }
 
 # "other option", "other"
 secondary_beneficiary_relation_to_annutaint: other option
 
+# if (secondary_beneficiary_date_of_birth == "today") {
 # "other option", "other"
 secondary_beneficiary_trustee_relation: other option
+# }
+
+# }
 
 ### Successor Annuitant Info Section
 

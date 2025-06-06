@@ -169,13 +169,13 @@ def enter_contact_info():
 
         if (options["contact_info_co_applicant_same_address"] == "yes"):
             yesOptionBtn = helper.wait_for_element_by_xpath('//button[@role="radio" and @value="true"]')
-            helper.click_btn(yesOptionBtn)
+            yesOptionBtn.click()
         else:
             helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
             if (options["contact_info_co_search_for_cur_address"] == "yes"):
                 addressField = helper.wait_for_element_by_xpath('//label[text()="Current Address"]/..//div//div//div//div//input')
-                helper.send_keys(addressField, "350 Hwy 7, Richmond Hill, ON L4B 3N2")
-                optionDiv = helper.wait_for_element_by_xpath('//label[text()="Current Address"]/..//div//div//div//div//div//div//div//div[@data-value="350 Hwy 7, Richmond Hill, ON L4B 3N2"]')
+                helper.send_keys(addressField, "3500 Steeles Ave E, Markham, ON L3R 0X1")
+                optionDiv = helper.wait_for_element_by_xpath('//label[text()="Current Address"]/..//div//div//div//div//div//div//div//div[@data-value="3500 Steeles Ave E, Markham, ON L3R 0X1"]')
                 helper.click_btn(optionDiv)
             else:
                 helper.enter_input("contactInfo.Co-Applicant.currAddr.streetNumberC", "22352")
@@ -198,8 +198,8 @@ def enter_contact_info():
                 helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
                 if (options["contact_info_co_search_for_prev_address"] == "yes"):
                     addressField = helper.wait_for_element_by_xpath('//label[text()="Previous Address"]/..//div//div//div//div//input')
-                    helper.send_keys(addressField, "350 Hwy 7, Richmond Hill, ON L4B 3N2")
-                    optionDiv = helper.wait_for_element_by_xpath('//label[text()="Previous Address"]/..//div//div//div//div//div//div//div//div[@data-value="350 Hwy 7, Richmond Hill, ON L4B 3N2"]')
+                    helper.send_keys(addressField, "3500 Steeles Ave E, Markham, ON L3R 0X1")
+                    optionDiv = helper.wait_for_element_by_xpath('//label[text()="Previous Address"]/..//div//div//div//div//div//div//div//div[@data-value="3500 Steeles Ave E, Markham, ON L3R 0X1"]')
                     helper.click_btn(optionDiv)
                 else:
                     helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
@@ -733,6 +733,8 @@ def enter_fin_analysis_info():
     helper.click_btn(addIncomeBtn)
     helper.wait_for_element_by_xpath('//input[@name="commonFields.annualIncome"]')
 
+    helper.set_zoom(50)
+    
     if (options["personal_info_if_co_applicant"] == "yes"):
         if (options["fin_analysis_add_income_owner"] == "applicant"):
             helper.enter_drop_down("Owner", 0, 0)
@@ -765,11 +767,23 @@ def enter_fin_analysis_info():
         if (options["fin_analysis_add_income_cur_serving_since"] == "today"):
             helper.select_today_date_picker('//label[text()="Serving Since"]/..//div//button', 0)
 
+            helper.set_zoom(100)
+            time.sleep(1)
+            prevIndustryDropDown = helper.wait_for_element_by_xpath('//label[text()="Previous Industry"]/..//div//button[@role="combobox"]')
+            helper.click_btn(prevIndustryDropDown)
+            helper.wait_for_element_by_xpath('//div[@role="option"]')
+            time.sleep(1)
+            agriIndustryOption = helper.wait_for_element_by_xpath('//div[@role="option"]//span[text()="Agriculture"]')
+            helper.click_btn(agriIndustryOption)
+            time.sleep(1)
+            prevOccupationDropDown = helper.wait_for_element_by_xpath('//label[text()="Previous Occupation"]/..//div//button[@role="combobox"]')
+            helper.click_btn(prevOccupationDropDown)
+            helper.wait_for_element_by_xpath('//div[@role="option"]')
+            time.sleep(1)
+            hortiAgriOption = helper.wait_for_element_by_xpath('//div[@role="option"]//span[text()="Horticulturalist"]')
+            helper.click_btn(hortiAgriOption)
+            time.sleep(1)
             helper.set_zoom(50)
-            helper.wait_for_element_to_be_interactable_by_name("prevEmploymentFields.employmentInfo.previousEmployerName")
-
-            helper.enter_drop_down("Previous Industry", 0, 0)
-            helper.enter_drop_down("Previous Occupation", 0, 0)
             helper.enter_input("prevEmploymentFields.employmentInfo.previousEmployerName", "Previous Employer Name")
 
             if (options["fin_analysis_add_income_search_for_prev_emp_address"] == "yes"):
@@ -785,10 +799,10 @@ def enter_fin_analysis_info():
                 helper.enter_input("prevEmploymentFields.addr.previousEmployerAddressProvince", "ON")
 
             helper.select_today_date_picker('//label[text()="Previous Serving Since"]/..//div//button', 0)
-            helper.set_zoom(100)
         
         else:
             helper.select_first_at_least_12yrs_ago_date_selector('//label[text()="Serving Since"]/..//div//button', 0)
+
 
     elif (options["fin_analysis_add_income_income_type"] == "other income"):
         helper.enter_drop_down("Income Type", 0, 7)
@@ -801,6 +815,7 @@ def enter_fin_analysis_info():
     helper.enter_input("commonFields.annualIncome", "1000000")
     addIncomeDialogBtn = helper.wait_for_element_by_xpath('//div[@role="dialog"]//div//button[contains(text(), "Add Income")]')
     helper.click_btn(addIncomeDialogBtn)
+    helper.set_zoom(100)
     time.sleep(1)
     # WebDriverWait(browser, 10).until_not(EC.visibility_of_element_located((By.NAME, 'commonFields.annualIncome')))
     helper.click_next_btn()
@@ -813,7 +828,7 @@ def enter_primary_beneficiary_info():
     helper.enter_input("pendingBeneficiary.commonInfo.firstName", "newTest")
     helper.enter_input("pendingBeneficiary.commonInfo.lastName", "newTest")
     if (options["primary_beneficiary_relation_to_annutaint"] == "other option"):
-        helper.enter_drop_down("Relatyion to Annutaint", 0, 26)
+        helper.enter_drop_down("Relation to Annuitant", 0, 26)
         helper.enter_input("pendingBeneficiary.commonInfo.relationToAnnuitantOther", "Other Relation")
     else:
         helper.enter_drop_down("Relation to Annuitant", 0, 0)
@@ -832,7 +847,7 @@ def enter_primary_beneficiary_info():
         helper.scroll_down_div_by_amt('//div[contains(@class, "overflow-auto")]', 200)
         if (options["primary_beneficiary_trustee_relation"] == "other option"):
             helper.enter_drop_down("Trustee Relation to Beneficiary", 0, 26)
-            helper.enter_input("pendingBeneficiary.trusteeInfo.trusteeFirstname", "Other Relation")
+            helper.enter_input("pendingBeneficiary.trusteeInfo.trusteeRelationToBeneficiaryOther", "Other Relation")
         else:
             helper.enter_drop_down("Trustee Relation to Beneficiary", 0, 0)
         helper.enter_input("pendingBeneficiary.trusteeInfo.trusteeFirstname", "newTest1")
@@ -854,7 +869,7 @@ def enter_secondary_beneficiary_info():
         helper.enter_input("pendingBeneficiary.commonInfo.firstName", "sbTest")
         helper.enter_input("pendingBeneficiary.commonInfo.lastName", "sbTest")
         if (options["secondary_beneficiary_relation_to_annutaint"] == "other option"):
-            helper.enter_drop_down("Relatyion to Annutaint", 0, 26)
+            helper.enter_drop_down("Relation to Annuitant", 0, 26)
             helper.enter_input("pendingBeneficiary.commonInfo.relationToAnnuitantOther", "Other Relation")
         else:
             helper.enter_drop_down("Relation to Annuitant", 0, 0)
@@ -872,7 +887,7 @@ def enter_secondary_beneficiary_info():
             time.sleep(2)
             if (options["secondary_beneficiary_trustee_relation"] == "other option"):
                 helper.enter_drop_down("Trustee Relation to Beneficiary", 0, 26)
-                helper.enter_input("pendingBeneficiary.trusteeInfo.trusteeFirstname", "Other Relation")
+                helper.enter_input("pendingBeneficiary.trusteeInfo.trusteeRelationToBeneficiaryOther", "Other Relation")
             else:
                 helper.enter_drop_down("Trustee Relation to Beneficiary", 0, 0)
             helper.enter_input("pendingBeneficiary.trusteeInfo.trusteeFirstname", "newTest1")
@@ -881,21 +896,19 @@ def enter_secondary_beneficiary_info():
         if (options["secondary_beneficiary_type"] == "irrevocable"):
             confirmBtn = helper.wait_for_element_by_xpath('//button[text()="Confirm"]')
             helper.click_btn(confirmBtn)
-        time.sleep(2)
         helper.set_zoom(100)
-    helper.click_next_btn()
-    time.sleep(3)
-    helper.wait_for_next_btn()
+        time.sleep(2)
+        helper.wait_for_next_btn()
     helper.click_next_btn()
 
-def enter_sucessor_annuitant_info():
+def enter_successor_annuitant_info():
     helper.wait_for_next_btn()
     if (options["successor_annuitant_is_there"] == "yes"):
         yesOptionBtn = helper.wait_for_element_by_xpath('//button[@role="radio" and @value="item1"]')
         helper.click_btn(yesOptionBtn)
-        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
         helper.enter_input("successorAnnuitant.firstName", "saTest")
         helper.enter_input("successorAnnuitant.lastName", "saTest")
+        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
         homePhoneField = helper.wait_for_element_by_xpath('//label[text()="Home Phone"]/..//div//div//input[@type="tel"]')
         homePhoneField.send_keys("2222222222")
         helper.enter_drop_down("Language Preference", 0, 0)
@@ -910,9 +923,9 @@ def enter_successor_owner_info():
     if (options["successor_owner_is_there"] == "yes"):
         yesOptionBtn = helper.wait_for_element_by_xpath('//button[@role="radio" and @value="item1"]')
         helper.click_btn(yesOptionBtn)
-        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
         helper.enter_input("successorOwner.firstName", "soTest")
         helper.enter_input("successorOwner.lastName", "soTest")
+        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
         homePhoneField = helper.wait_for_element_by_xpath('//label[text()="Home Phone"]/..//div//div//input[@type="tel"]')
         homePhoneField.send_keys("2222222222")
         helper.enter_drop_down("Language Preference", 0, 0)
@@ -925,29 +938,29 @@ def enter_successor_owner_info():
 def enter_investor_profile_info():
     helper.wait_for_next_btn()
     if (options["investor_profile_score"] == "lower than 200"):
-        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
-        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
-        fourthAOption = helper.wait_for_element_by_xpath('//label[contains(teaxt(), "E. To provide for my dependants")]/..//button')
+        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
+        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
+        fourthAOption = helper.wait_for_element_by_xpath('//label[contains(text(), "A. To generate income for today")]/..//button')
         helper.click_btn(fourthAOption)
-        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
+        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
         fifthAOption = helper.wait_for_element_by_xpath('//label[contains(text(), "A. To ensure that my portfolio remains secure")]/..//button')
         helper.click_btn(fifthAOption)
-        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
+        helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
         sixthCOption = helper.wait_for_element_by_xpath('//label[contains(text(), "C. Between 4 and 5 years")]/..//button')
         helper.click_btn(sixthCOption)
         helper.no_proceed_app()
     if (options["personal_info_if_co_applicant"] == "yes"):
         helper.switch_to_co_applicant_section()
         if (options["investor_profile_co_score"] == "lower than 200"):
-            helper.scroll_up_div_by_amt('//div[contains(@class, "overflow-y-auto")]', 2000)
-            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
-            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
-            fourthAOption = helper.wait_for_element_by_xpath('//label[contains(teaxt(), "E. To provide for my dependants")]/..//button')
+            helper.scroll_up_div_by_amt('//div[contains(@class, "overflow-auto")]', 2000)
+            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
+            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
+            fourthAOption = helper.wait_for_element_by_xpath('//label[contains(text(), "E. To provide for my dependants")]/..//button')
             helper.click_btn(fourthAOption)
-            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
+            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
             fifthAOption = helper.wait_for_element_by_xpath('//label[contains(text(), "A. To ensure that my portfolio remains secure")]/..//button')
             helper.click_btn(fifthAOption)
-            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-y-auto")]')
+            helper.scroll_down_div_by_pg_down('//div[contains(@class, "overflow-auto")]')
             sixthCOption = helper.wait_for_element_by_xpath('//label[contains(text(), "C. Between 4 and 5 years")]/..//button')
             helper.click_btn(sixthCOption)
             helper.no_proceed_app()
@@ -955,7 +968,7 @@ def enter_investor_profile_info():
 
 def enter_credit_report_info():
     helper.wait_for_next_btn()
-    if (options["credit_report_score_at_leats_700"] == "yes"):
+    if (options["credit_report_score_at_least_700"] == "yes"):
         yesOptionBtn = helper.wait_for_element_by_xpath('//button[@role="radio" and @value="yes"]')
         helper.click_btn(yesOptionBtn)
         helper.upload_file_to_input(0)
@@ -965,7 +978,7 @@ def enter_credit_report_info():
         helper.no_proceed_app()
     if (options["personal_info_if_co_applicant"] == "yes"):
         helper.switch_to_co_applicant_section()
-        if (options["credit_report_co_score_at_leats_700"] == "yes"):
+        if (options["credit_report_co_score_at_least_700"] == "yes"):
             yesOptionBtn = helper.wait_for_element_by_xpath('//button[@role="radio" and @value="yes"]')
             helper.click_btn(yesOptionBtn)
             helper.upload_file_to_input(0)
@@ -996,7 +1009,7 @@ def create_application():
     enter_fin_analysis_info()
     enter_primary_beneficiary_info()
     enter_secondary_beneficiary_info()
-    enter_sucessor_annuitant_info()
+    enter_successor_annuitant_info()
     enter_successor_owner_info()
     enter_investor_profile_info()
     enter_credit_report_info()
@@ -1024,4 +1037,4 @@ async def main(options_data: dict[str, str]): # (yaml_file: str)
        create_application()
     
 if __name__ == "__main__":
-    asyncio.run(main("new-quick-loan-various-routes.yaml"))
+    asyncio.run(main("new-quick-loan-various-routes-legacy.yaml"))

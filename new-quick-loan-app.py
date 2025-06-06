@@ -145,7 +145,7 @@ if personal_info_if_co_applicant == "yes":
     }.get(resi_status_info_main_applicant_resi, ["own home", "rented home", "live with parents", "others"])
     resi_status_info_co_applicant_resi = st.selectbox("Co-applicant Residential Status", resi_status_info_co_applicant_resi_options)
 if resi_status_info_main_applicant_resi == "own home" or (personal_info_if_co_applicant == "yes" and resi_status_info_co_applicant_resi == "own home"):
-    owner_options = ["both"] if resi_status_info_main_applicant_resi == "own home" and resi_status_info_co_applicant_resi == "own home" else (
+    owner_options = ["both"] if resi_status_info_main_applicant_resi == "own home" and (personal_info_if_co_applicant == "yes" and resi_status_info_co_applicant_resi == "own home") else (
         ["applicant", "both"] if resi_status_info_main_applicant_resi == "own home" else ["co applicant", "both"])
     resi_status_info_owner_of_home = st.selectbox("Owner of Home", owner_options)
     resi_status_info_is_mortgage = st.selectbox("Is there a mortgage?", ["yes", "no"])
@@ -185,7 +185,8 @@ st.header("Primary Beneficiary Info")
 primary_beneficiary_type = st.selectbox("Primary Beneficiary Type", ["revocable", "irrevocable"])
 primary_beneficiary_date_of_birth = st.selectbox("Primary Beneficiary Date of Birth", ["today", "first of month at least 24 yrs ago"])
 primary_beneficiary_relation_to_annutaint = st.selectbox("Relation to Annuitant", ["other option", "other"])
-primary_beneficiary_trustee_relation = st.selectbox("Trustee Relation", ["other option", "other"])
+if primary_beneficiary_date_of_birth == "today":
+    primary_beneficiary_trustee_relation = st.selectbox("Trustee Relation", ["other option", "other"])
 
 # Secondary Beneficiary Info Section
 st.header("Secondary Beneficiary Info")
@@ -193,8 +194,9 @@ secondary_beneficiary_is_there = st.selectbox("Is there a secondary beneficiary?
 if secondary_beneficiary_is_there == "yes":
     secondary_beneficiary_type = st.selectbox("Secondary Beneficiary Type", ["revocable", "irrevocable"])
     secondary_beneficiary_date_of_birth = st.selectbox("Secondary Beneficiary Date of Birth", ["today", "first of month at least 24 yrs ago"])
-secondary_beneficiary_relation_to_annutaint = st.selectbox("Secondary Relation to Annuitant", ["other option", "other"])
-secondary_beneficiary_trustee_relation = st.selectbox("Secondary Trustee Relation", ["other option", "other"])
+    secondary_beneficiary_relation_to_annutaint = st.selectbox("Secondary Relation to Annuitant", ["other option", "other"])
+    if secondary_beneficiary_date_of_birth == "today":
+        secondary_beneficiary_trustee_relation = st.selectbox("Secondary Trustee Relation", ["other option", "other"])
 
 # Successor Annuitant Info Section
 st.header("Successor Annuitant Info")
@@ -255,7 +257,7 @@ if st.button("Submit"):
             data["contact_info_co_search_for_cur_address"] = contact_info_co_search_for_cur_address
             if contact_info_co_search_for_cur_address == "no":
                 data["contact_info_co_cur_province"] = contact_info_co_cur_province
-            data["contact_comments_info_co_cur_living_since"] = contact_info_co_cur_living_since
+            data["contact_info_co_cur_living_since"] = contact_info_co_cur_living_since
             if contact_info_co_cur_living_since != "first of month at least 12 yrs ago":
                 data["contact_info_co_search_for_prev_address"] = contact_info_co_search_for_prev_address
                 if contact_info_co_search_for_prev_address == "no":
@@ -352,14 +354,16 @@ if st.button("Submit"):
     data["primary_beneficiary_type"] = primary_beneficiary_type
     data["primary_beneficiary_date_of_birth"] = primary_beneficiary_date_of_birth
     data["primary_beneficiary_relation_to_annutaint"] = primary_beneficiary_relation_to_annutaint
-    data["primary_beneficiary_trustee_relation"] = primary_beneficiary_trustee_relation
+    if primary_beneficiary_date_of_birth == "today":
+        data["primary_beneficiary_trustee_relation"] = primary_beneficiary_trustee_relation
 
     data["secondary_beneficiary_is_there"] = secondary_beneficiary_is_there
     if secondary_beneficiary_is_there == "yes":
         data["secondary_beneficiary_type"] = secondary_beneficiary_type
         data["secondary_beneficiary_date_of_birth"] = secondary_beneficiary_date_of_birth
-    data["secondary_beneficiary_relation_to_annutaint"] = secondary_beneficiary_relation_to_annutaint
-    data["secondary_beneficiary_trustee_relation"] = secondary_beneficiary_trustee_relation
+        data["secondary_beneficiary_relation_to_annutaint"] = secondary_beneficiary_relation_to_annutaint
+        if secondary_beneficiary_date_of_birth == "today":
+            data["secondary_beneficiary_trustee_relation"] = secondary_beneficiary_trustee_relation
 
     data["successor_annuitant_is_there"] = successor_annuitant_is_there
     data["successor_owner_is_there"] = successor_owner_is_there
