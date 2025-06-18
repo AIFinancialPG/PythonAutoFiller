@@ -39,7 +39,7 @@ def pre_application_steps(message):
     helper.click_btn(newApplicationBtn)
     invstTypeBtn = helper.wait_for_element_by_xpath("//div[contains(text(), 'New Investment Account')]/../../..//button[text()='Apply']")
     helper.click_btn(invstTypeBtn)
-    fundTypeBtn = helper.wait_for_element_by_xpath("//div[contains(text(), 'Personal Fund')]/../../..//button[text()='Apply']")
+    fundTypeBtn = helper.wait_for_element_by_xpath("//div[contains(text(), 'Loan')]/../../..//button[text()='Apply']")
     helper.click_btn(fundTypeBtn)
     loanTypeBtn = helper.wait_for_element_by_xpath("//div[contains(text(), 'Quick Loan')]/../../..//button[text()='Apply']")
     helper.click_btn(loanTypeBtn)
@@ -229,7 +229,7 @@ def enter_id_info():
     helper.enter_drop_down("Issuing Authority", 0, 2)
     helper.upload_file_to_input(0)
     helper.scroll_down_div_by_amt('//div[contains(@class, "overflow-y-auto")]', 200)
-    helper.enter_drop_down("Issuing Country", 0, 1)
+    helper.enter_drop_down("Issuing Country", 0, 0)
     helper.enter_input("identification.Applicant.id1.issueProvince", "Ontario")
     if (options["id_info_id1_issue_date"] == "first of month"):
         helper.select_first_date_picker('//label[text()="Issue Date"]/..//div//button', 0)
@@ -253,7 +253,7 @@ def enter_id_info():
     helper.enter_drop_down("Issuing Authority", 0, 2)
     helper.upload_file_to_input(0)
     helper.scroll_down_div_by_amt('//div[contains(@class, "overflow-y-auto")]', 250)
-    helper.enter_drop_down("Issuing Country", 0, 1)
+    helper.enter_drop_down("Issuing Country", 0, 0)
     helper.enter_input("identification.Applicant.id2.issueProvince", "Ontario")
     if (options["id_info_id2_issue_date"] == "first of month"):
         helper.select_first_date_picker('//label[text()="Issue Date"]/..//div//button', 0)
@@ -303,7 +303,7 @@ def enter_id_info():
         helper.enter_drop_down("Issuing Authority", 0, 2)
         helper.upload_file_to_input(0)
         helper.scroll_down_div_by_amt('//div[contains(@class, "overflow-y-auto")]', 200)
-        helper.enter_drop_down("Issuing Country", 0, 1)
+        helper.enter_drop_down("Issuing Country", 0, 0)
         helper.enter_input("identification.Co-Applicant.id1.issueProvince", "Ontario")
         if (options["id_info_co_id1_issue_date"] == "first of month"):
             helper.select_first_date_picker('//label[text()="Issue Date"]/..//div//button', 0)
@@ -327,7 +327,7 @@ def enter_id_info():
         helper.enter_drop_down("Issuing Authority", 0, 2)
         helper.upload_file_to_input(0)
         helper.scroll_down_div_by_amt('//div[contains(@class, "overflow-y-auto")]', 250)
-        helper.enter_drop_down("Issuing Country", 0, 1)
+        helper.enter_drop_down("Issuing Country", 0, 0)
         helper.enter_input("identification.Co-Applicant.id2.issueProvince", "Ontario")
         if (options["id_info_co_id2_issue_date"] == "first of month"):
             helper.select_first_date_picker('//label[text()="Issue Date"]/..//div//button', 0)

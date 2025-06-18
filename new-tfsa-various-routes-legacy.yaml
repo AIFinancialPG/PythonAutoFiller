@@ -1,0 +1,99 @@
+### Personal Info section
+# "something", ""
+personal_info_pref_name: ""
+
+### Contact Info section
+# "yes", "no"
+contact_info_if_home_phone: "yes"
+
+# "yes, "no"
+contact_info_if_work_phone: "yes"
+
+# "yes", "no"
+contact_info_search_for_cur_address: "yes"
+
+# if (contact_info_search_for_cur_address == "no") {
+# "valid", "inavlid"
+contact_info_cur_address_prov: valid
+
+# ------------------------------- Cannot proceed if "invalid" -------------------------------
+# }
+
+# "yes", "no"
+contact_info_search_for_cur_address: "yes"
+
+### Identification section
+# "canadian citizenship card", "other"
+id_document_id_type: other
+
+# "other option", "other"
+id_verify_doc_type: other option
+
+### Employment Info section
+# "employed", "student", "other"
+emp_info_status: other
+
+### Disclosure Info section
+# "other option", "other"
+disclosure_info_purpose_of_investment: other option
+
+# "other option", "other"
+disclosure_info_source_of_funds_used_for_app: other option
+
+### Source of Contribution section
+# "yes", "no"
+source_of_contri_search_for_fin_inst_address: "yes"
+
+# "all in-cash", "partial policy/account"
+source_of_contri_type_of_transfer: partial policy/account
+
+### Sucess Owner(Optional) section
+# "yes", "no"
+sucess_owner_if_success_owner: "yes"
+
+### Primary Beneficiary section
+# "revocable", "irrevocable"
+primary_beneficiary_type: irrevocable
+
+# "today", "first of month at least 24 yrs ago"
+primary_beneficiary_date_of_birth: today
+
+# "other option", "other"
+primary_beneficiary_relation_to_annutaint: other option
+
+# if (primary_beneficiary_date_of_birth == "today") {
+# "other option", "other"
+primary_beneficiary_trustee_relation: other option
+# }
+
+### Secondary Beneficiary(Optional) section
+# "yes", "no"
+secondary_beneficiary_is_there: 'yes'
+
+# if (secondary_beneficiary_is_there == "yes") {
+# "revocable", "irrevocable"
+secondary_beneficiary_type: irrevocable
+
+# "today", "first of month at least 24 yrs ago"
+secondary_beneficiary_date_of_birth: today
+
+# "other option", "other"
+secondary_beneficiary_relation_to_annutaint: other option
+
+# if (secondary_beneficiary_date_of_birth == "today") {
+# "other option", "other"
+secondary_beneficiary_trustee_relation: other option
+# }
+
+# }
+
+### Investor Profile section
+
+# "lower than 200", "equal or more than 200"
+investor_profile_score: equal or more than 200
+
+# ------------------------------------- Cannot Proceed if "lower than 200" ---------------------------------
+
+### Feedback section
+
+# !!! nothing required !!!
